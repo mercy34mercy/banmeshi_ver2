@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import TopBar from './TopBar';
+import SearchBar from './SearchBar';
+import RecipeBox from './RecipeBox';
+import { Fetch } from './FetchAPI';
+import { Load } from './Loading';
+import React, { useEffect } from 'react'
 
-function App() {
+
+type recipedata = {
+  foodImageUrl: String,
+  mediumImageUrl: String,
+  recipeCost: String,
+  recipeTitle: String,
+  recipeUrl: String,
+  smallImageUrl: String,
+  threeRecipeMaterial: String
+}
+
+type props = {
+  search:any,
+  setLoading:any
+}
+
+export const App = (props:props) => {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <TopBar></TopBar>
+      </div>
+      <div className='center'>
+        <SearchBar search={props.search} setLoading={props.setLoading}></SearchBar>
+      </div>
     </div>
+
   );
 }
 
-export default App;
