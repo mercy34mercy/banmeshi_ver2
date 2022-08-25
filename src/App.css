@@ -3,7 +3,7 @@
 }
 
 .logo img{
-  width: 60%;
+  width: 70%;
   max-width: 40rem;
 }
 
@@ -40,4 +40,66 @@
 
 input[type=text]:focus {
   outline: none;
+}
+
+
+
+
+.picturebox{
+  padding: 1rem;
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+
+.flexbox{
+  display: flex;
+}
+
+.recipebox {
+  margin-top: 2rem;
+  border-radius: 5rem;
+  box-shadow: 0 6px 8px rgba(0,0,0,.15);
+  padding: 2rem;
+  width: 80%;
+  max-width: 40rem;
+  margin: auto;
+}
+.picturebox img{
+  width: 80%;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 2rem;
+}
+
+.materialbox{
+  width: 50%;
+}
+
+.recipetitle{
+  font-weight: bold;
+}
+
+.urlbutton{
+  text-align: center;
+  margin: auto;
+}
+
+.urlbutton button{
+  padding: 0.5rem;
+  width: 40%;
+  max-width: 8rem;
+  background: transparent;
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 6px 8px rgba(0,0,0,.35);
+}
+
+.urlbutton a{
+  text-decoration: none;
+  color: black;
+}
+
+.recipe {
+  margin-top: 1rem;
 }

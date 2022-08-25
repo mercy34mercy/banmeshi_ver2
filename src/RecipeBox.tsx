@@ -24,19 +24,19 @@ const RecipeBox = () => {
     const RefRecipedata = React.useRef(data)
 
     type recipedata = {
-        foodImageUrl: String,
-        mediumImageUrl: String,
-        recipeCost: String,
-        recipeTitle: String,
-        recipeUrl: String,
-        smallImageUrl: String,
-        threeRecipeMaterial: String
+        foodImageUrl: string,
+        mediumImageUrl: string,
+        recipeCost: string,
+        recipeTitle: string,
+        recipeUrl: string,
+        smallImageUrl: string,
+        threeRecipeMaterial: string[]
     }
 
-    const Fetch = (props: String[]) => {
+    const Fetch = (props: string[]) => {
         // const [flag, setflag] = React.useState(true)
         let Recipedata: recipedata[] = []
-        const url = "https://banmeshikun.azurewebsites.net/random_one_by_mate"
+        const url = "https://banmeshikun.azurewebsites.net/recipe_by_mate"
 
         const requestOptions: RequestInit = {
             method: 'POST',
@@ -45,27 +45,35 @@ const RecipeBox = () => {
         };
 
 
-        const FetchAPI = async () => {
+        const FetchAPI = () => {
             (async () => {
                 try {
                     const response = await fetch(url, requestOptions)
                     const body = await response.json()
-                    console.log("body => ", body.data[0])
 
-                    const setdata: recipedata = {
-                        foodImageUrl: body.data[0].foodImageUrl,
-                        mediumImageUrl: body.data[0].mediumImageUrl,
-                        recipeCost: body.data[0].recipeCost,
-                        recipeTitle: body.data[0].recipeTitle,
-                        recipeUrl: body.data[0].recipeUrl,
-                        smallImageUrl: body.data[0].smallImageUrl,
-                        threeRecipeMaterial: body.data[0].threeRecipeMaterial
-                    }
-                    Recipedata.push(setdata);
-                    data.push(setdata)
-                    console.log("setdata => ", setdata)
+                    let recipearray: recipedata[] = []
 
-                    // setflag(false)
+                    body.data.forEach((element: recipedata) => {
+                        let material: string[] = []
+                        element.threeRecipeMaterial.map((mate: string, i: number) =>
+                            material.push(mate)
+                        )
+                        const setdata: recipedata = {
+                            foodImageUrl: element.foodImageUrl,
+                            mediumImageUrl: element.mediumImageUrl,
+                            recipeCost: element.recipeCost,
+                            recipeTitle: element.recipeTitle,
+                            recipeUrl: element.recipeUrl,
+                            smallImageUrl: element.smallImageUrl,
+                            threeRecipeMaterial: material
+                        }
+                        recipearray.push(setdata)
+
+                        console.log("setdata => ", setdata)
+                    });
+                    setRecipedata(recipearray)
+
+
                 }
                 catch {
 
@@ -101,8 +109,28 @@ const RecipeBox = () => {
             <div>
                 <App search={search} setLoading={setLoading}></App>
             </div>
-            <div className='main'>
-                {data.map((recipe, i) => <li key={i}>{recipe.foodImageUrl}</li>)}
+            <div className='recipe'>
+                {data.map((recipe, i) =>
+                    <div className='recipebox' key={i}>
+                        <div className='flexbox'>
+                            <div className='box picturebox'>
+                                <img src={recipe.foodImageUrl} alt="レシピ画像" />
+                            </div>
+                            <div className='materialbox box'>
+                                <p className='recipetitle'>{recipe.recipeTitle}</p>
+                                {recipe.threeRecipeMaterial.map((mate, l) =>
+                                    <p key={l}>{mate}</p>
+                                )}
+                                <p>{recipe.recipeCost}</p>
+                            </div>
+                        </div>
+                        <div className='urlbutton'>
+                            <button><a href={recipe.recipeUrl} target="_blank" >レシピ詳細</a></button>
+                        </div>
+                    </div>
+
+                )}
+
             </div>
         </div>
     )
