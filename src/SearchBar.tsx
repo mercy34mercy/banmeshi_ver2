@@ -15,10 +15,17 @@ const SearchBar = (props:props) => {
     setMaterials(() => e.target.value)
   }
 
+  const pressEnter = (e:any)  =>{
+    if (e.key == 'Enter') {
+      props.search(materials)
+    }
+  }
+
+
   return (
     <div className="searchbar">
       <div className='searchinput'>
-        <input  type="text" value={materials} onChange={handleChange} />
+        <input  type="text" value={materials} onChange={handleChange} onKeyPress={pressEnter}/>
       </div>
       <SearchButton search={props.search} materials={materials} setLoading={props.setLoading}></SearchButton>
     </div>
