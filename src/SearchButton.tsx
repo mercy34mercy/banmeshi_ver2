@@ -11,7 +11,7 @@ type props = {
 const SearchButton = (props:props) => {
    const handleclick = () => {
     props.search(props.materials)
-    // props.setLoading(true)
+    props.setLoading(true)
    } 
 
   return (

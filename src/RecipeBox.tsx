@@ -1,7 +1,8 @@
 import { type } from '@testing-library/user-event/dist/type'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Fetch } from './FetchAPI';
 import { App } from './App'
+import {Load} from './Loading'
 
 
 type recipedata = {
@@ -17,11 +18,9 @@ type recipedata = {
 
 
 const RecipeBox = () => {
-    const [text, setText] = React.useState("")
-
     const [data, setRecipedata] = React.useState<recipedata[]>([])
     const [Loading, setLoading] = React.useState<boolean>(false)
-    const RefRecipedata = React.useRef(data)
+
 
     type recipedata = {
         foodImageUrl: string,
@@ -34,8 +33,7 @@ const RecipeBox = () => {
     }
 
 
-    const Fetch = (props: string[]) => {
-        // const [flag, setflag] = React.useState(true)
+    const Fetch = (props: string[]) =>{
         let Recipedata: recipedata[] = []
         const url = "https://banmeshikun.azurewebsites.net/recipe_by_mate"
 
@@ -73,6 +71,7 @@ const RecipeBox = () => {
                         console.log("setdata => ", setdata)
                     });
                     setRecipedata(recipearray)
+                    setLoading(false)
 
 
                 }
@@ -85,32 +84,26 @@ const RecipeBox = () => {
         }
 
         FetchAPI()
+      
+       
 
 
     }
 
 
     const search = (materials: string) => {
-        // const  Recipedata = Fetch(materials.replaceAll("　", " ").split(" "))
-        // RefRecipedata.current = Recipedata
-        // setRecipedata(Recipedata)
-        // console.log("RefRecipedata.current",RefRecipedata.current)
-        // setLoading(false)
-        // setLoading(true)
+        setLoading(true)
         Fetch(materials.replaceAll("　", " ").split(" "))
     }
 
-    useEffect(() => {
-        setLoading(true)
-        // RefRecipedata.current = data
-    }, [data])
 
     return (
         <div>
             <div>
                 <App search={search} setLoading={setLoading}></App>
             </div>
-            <div className='recipe'>
+            <div>
+                {Loading ? <Load/> :  <div className='recipe'>
                 {data.map((recipe, i) =>
                     <div className='recipebox' key={i}>
                         <div className='flexbox'>
@@ -132,7 +125,9 @@ const RecipeBox = () => {
 
                 )}
 
+            </div>}
             </div>
+
         </div>
     )
 }
