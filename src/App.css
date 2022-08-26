@@ -46,8 +46,7 @@ input[type=text]:focus {
 
 
 .picturebox{
-  padding: 1rem;
-  width: 40%;
+  width: 50%;
   display: flex;
   align-items: center;
 }
@@ -60,20 +59,22 @@ input[type=text]:focus {
   border-radius: 5rem;
   box-shadow: 0 7px 15px 3px rgba(0,0,0,.15);
   /* box-shadow: 5px 1px 9px 2px rgba(0,0,0,.15) inset; */
-  padding: 2rem;
+  padding:1rem;
   width: 75%;
   max-width: 40rem;
   margin: 2rem auto;
 }
 .picturebox img{
   width: 80%;
-  height: 8rem;
+  height: 10rem;
   object-fit: cover;
   border-radius: 2rem;
+  margin: auto;
 }
 
 .materialbox{
-  width: 50%;
+  padding: 1rem;
+  width: 40%;
 }
 
 .recipetitle{
