@@ -1,37 +1,22 @@
 import { type } from '@testing-library/user-event/dist/type'
 import React, { useEffect, useRef } from 'react'
 import { Fetch } from './FetchAPI';
-import { App } from './App'
+import { Searchbox } from './SearchBox'
 import {Load} from './Loading'
 
-
 type recipedata = {
-    foodImageUrl: String,
-    mediumImageUrl: String,
-    recipeCost: String,
-    recipeTitle: String,
-    recipeUrl: String,
-    smallImageUrl: String,
-    threeRecipeMaterial: String
+    foodImageUrl: string,
+    mediumImageUrl: string,
+    recipeCost: string,
+    recipeTitle: string,
+    recipeUrl: string,
+    smallImageUrl: string,
+    threeRecipeMaterial: string[]
 }
-
-
 
 const RecipeBox = () => {
     const [data, setRecipedata] = React.useState<recipedata[]>([])
     const [Loading, setLoading] = React.useState<boolean>(false)
-
-
-    type recipedata = {
-        foodImageUrl: string,
-        mediumImageUrl: string,
-        recipeCost: string,
-        recipeTitle: string,
-        recipeUrl: string,
-        smallImageUrl: string,
-        threeRecipeMaterial: string[]
-    }
-
 
     const Fetch = (props: string[]) =>{
         let Recipedata: recipedata[] = []
@@ -43,15 +28,12 @@ const RecipeBox = () => {
             body: JSON.stringify({ data: props })
         };
 
-
         const FetchAPI = () => {
             (async () => {
                 try {
                     const response = await fetch(url, requestOptions)
                     const body = await response.json()
-
                     let recipearray: recipedata[] = []
-
                     body.data.forEach((element: recipedata) => {
                         let material: string[] = []
                         element.threeRecipeMaterial.map((mate: string, i: number) =>
@@ -67,29 +49,19 @@ const RecipeBox = () => {
                             threeRecipeMaterial: material
                         }
                         recipearray.push(setdata)
-
                         console.log("setdata => ", setdata)
                     });
                     setRecipedata(recipearray)
                     setLoading(false)
-
-
                 }
                 catch {
 
                 } finally {
                 }
             })()
-
         }
-
         FetchAPI()
-      
-       
-
-
     }
-
 
     const search = (materials: string) => {
         setLoading(true)
@@ -100,7 +72,7 @@ const RecipeBox = () => {
     return (
         <div>
             <div>
-                <App search={search} setLoading={setLoading}></App>
+                <Searchbox search={search} setLoading={setLoading}></Searchbox>
             </div>
             <div>
                 {Loading ? <Load/> :  <div className='recipe'>
@@ -124,10 +96,8 @@ const RecipeBox = () => {
                     </div>
 
                 )}
-
             </div>}
             </div>
-
         </div>
     )
 }
