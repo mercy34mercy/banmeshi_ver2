@@ -19,7 +19,6 @@ const RecipeBox = () => {
     const [Loading, setLoading] = React.useState<boolean>(false)
 
     const Fetch = (props: string[]) =>{
-        let Recipedata: recipedata[] = []
         const url = "https://banmeshikun.azurewebsites.net/recipe_by_mate"
 
         const requestOptions: RequestInit = {
@@ -55,7 +54,6 @@ const RecipeBox = () => {
                     setLoading(false)
                 }
                 catch {
-
                 } finally {
                 }
             })()
@@ -94,7 +92,6 @@ const RecipeBox = () => {
                             <button><a href={recipe.recipeUrl} target="_blank" >レシピ詳細</a></button>
                         </div>
                     </div>
-
                 )}
             </div>}
             </div>
