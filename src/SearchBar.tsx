@@ -25,7 +25,7 @@ const SearchBar = (props:props) => {
   return (
     <div className="searchbar">
       <div className='searchinput'>
-        <input  type="text" value={materials} onChange={handleChange} onKeyPress={pressEnter}/>
+        <input  type="text" value={materials} placeholder="(例) 玉ねぎ 牛肉 人参" onChange={handleChange} onKeyPress={pressEnter}/>
       </div>
       <SearchButton search={props.search} materials={materials} setLoading={props.setLoading}></SearchButton>
     </div>
